@@ -1,0 +1,6 @@
+$env:TF_LOG="DEBUG"
+$env:TF_LOG_PATH="C:/Users/Admin/Downloads/demo/logs/debug.log"
+
+
+# to check
+echo $env:TF_LOG
