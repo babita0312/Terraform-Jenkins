@@ -1,0 +1,28 @@
+
+#!/bin/bash
+# Update the system and install Ansible
+
+sudo yum update -y
+sudo yum install -y ansible
+
+# Create an Ansible playbook
+cat > /tmp/install_packages.yml <<EOF
+---
+- name: Install multiple packages
+  hosts: localhost
+  become: yes
+  connection: local
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - git
+        - curl
+        - htop
+EOF
+
+# Run the playbook
+ansible-playbook /tmp/install_packages.yml
