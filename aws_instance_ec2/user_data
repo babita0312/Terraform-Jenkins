@@ -26,3 +26,14 @@ EOF
 
 # Run the playbook
 ansible-playbook /tmp/install_packages.yml
+
+
+----------
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo dnf install -y ansible", #If you want to keep using Amazon Linux 2023, you'll have to install Ansible via dnf:
+      # "amazon-linux-extras install ansible2 -y",  # AMI ID with Amazon Linux 2
+      "chmod 400 /home/ec2-user/ansible_master.pem",
+      "ansible-playbook -i /home/ec2-user/inventory /home/ec2-user/ping.yaml"
+    ]
